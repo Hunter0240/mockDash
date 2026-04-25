@@ -1,0 +1,67 @@
+import { memo } from "react";
+import {
+  Bar,
+  BarChart as RechartsBarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import type { DataPoint } from "@/types";
+import { CHART_COLORS, chartTooltipStyle } from "@/tokens";
+
+interface BarChartWidgetProps {
+  data: DataPoint[];
+  seriesKeys?: string[];
+}
+
+export const BarChartWidget = memo(function BarChartWidget({ data, seriesKeys }: BarChartWidgetProps) {
+  if (data.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-full" style={{ color: "var(--color-text-muted)", fontSize: "var(--text-sm)" }}>
+        No data
+      </div>
+    );
+  }
+
+  const keys =
+    seriesKeys ??
+    Array.from(new Set(data.flatMap((d) => d.series.map((s) => s.label))));
+
+  const chartData = data.map((point) => {
+    const row: Record<string, unknown> = {
+      time: new Date(point.timestamp).toLocaleTimeString(),
+    };
+    for (const s of point.series) {
+      row[s.label] = s.value;
+    }
+    return row;
+  });
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <RechartsBarChart data={chartData}>
+        <CartesianGrid strokeDasharray="3 3" stroke="var(--color-grid)" opacity={0.3} />
+        <XAxis
+          dataKey="time"
+          tick={{ fontSize: 11, fill: "var(--color-text-muted)" }}
+          stroke="var(--color-axis)"
+          tickLine={false}
+        />
+        <YAxis tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} stroke="var(--color-axis)" tickLine={false} />
+        <Tooltip contentStyle={chartTooltipStyle()} />
+        <Legend wrapperStyle={{ fontSize: "var(--text-sm)" }} />
+        {keys.map((key, i) => (
+          <Bar
+            key={key}
+            dataKey={key}
+            fill={CHART_COLORS[i % CHART_COLORS.length]}
+            radius={[2, 2, 0, 0]}
+          />
+        ))}
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+});

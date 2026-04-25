@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths: ["dash/**"]
+  pull_request:
+    branches: [main]
+    paths: ["dash/**"]
+
+jobs:
+  lint-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dash/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff
+      - run: ruff check app/
+      - run: ruff format --check app/
+
+  lint-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dash/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci
+      - run: npx eslint src/
+      - run: npx tsc --noEmit
+
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: [lint-backend, lint-frontend]
+    defaults:
+      run:
+        working-directory: dash
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f Dockerfile.backend -t dash-backend .
+      - run: docker build -f Dockerfile.frontend -t dash-frontend .

@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Code', monospace;
+
+    --text-xs: 0.6875rem;
+    --text-sm: 0.75rem;
+    --text-base: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: clamp(1.125rem, 1rem + 0.25vw, 1.25rem);
+    --text-xl: clamp(1.25rem, 1rem + 0.5vw, 1.5rem);
+    --text-stat: clamp(1.5rem, 1.25rem + 0.75vw, 2.25rem);
+
+    --leading-tight: 1.2;
+    --leading-normal: 1.5;
+
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 0.75rem;
+    --space-lg: 1rem;
+    --space-xl: 1.5rem;
+    --space-2xl: 2rem;
+
+    --color-surface: oklch(0.985 0.003 250);
+    --color-surface-raised: oklch(0.99 0.002 250);
+    --color-surface-sunken: oklch(0.965 0.004 250);
+    --color-border: oklch(0.88 0.006 250);
+    --color-border-subtle: oklch(0.93 0.004 250);
+    --color-text: oklch(0.18 0.01 250);
+    --color-text-secondary: oklch(0.45 0.01 250);
+    --color-text-muted: oklch(0.6 0.008 250);
+    --color-focus: oklch(0.55 0.18 255);
+
+    --color-chart-1: oklch(0.6 0.12 195);
+    --color-chart-2: oklch(0.55 0.16 260);
+
+    --color-status-ok: oklch(0.65 0.17 155);
+    --color-status-warn: oklch(0.75 0.15 80);
+    --color-status-crit: oklch(0.6 0.2 25);
+
+    --color-grid: oklch(0.88 0.005 250);
+    --color-axis: oklch(0.55 0.01 250);
+    --color-tooltip-bg: oklch(0.22 0.01 250);
+    --color-tooltip-border: oklch(0.35 0.01 250);
+  }
+
+  .dark {
+    --color-surface: oklch(0.14 0.008 250);
+    --color-surface-raised: oklch(0.18 0.008 250);
+    --color-surface-sunken: oklch(0.11 0.006 250);
+    --color-border: oklch(0.28 0.008 250);
+    --color-border-subtle: oklch(0.22 0.006 250);
+    --color-text: oklch(0.92 0.005 250);
+    --color-text-secondary: oklch(0.65 0.008 250);
+    --color-text-muted: oklch(0.5 0.008 250);
+    --color-focus: oklch(0.65 0.18 255);
+
+    --color-chart-1: oklch(0.7 0.12 195);
+    --color-chart-2: oklch(0.65 0.16 260);
+
+    --color-status-ok: oklch(0.72 0.15 155);
+    --color-status-warn: oklch(0.8 0.13 80);
+    --color-status-crit: oklch(0.7 0.18 25);
+
+    --color-grid: oklch(0.3 0.005 250);
+    --color-axis: oklch(0.55 0.008 250);
+    --color-tooltip-bg: oklch(0.18 0.008 250);
+    --color-tooltip-border: oklch(0.3 0.008 250);
+  }
+
+  .theme-stone {
+    --color-surface: oklch(0.975 0.006 70);
+    --color-surface-raised: oklch(0.985 0.005 70);
+    --color-surface-sunken: oklch(0.955 0.008 70);
+    --color-border: oklch(0.85 0.01 70);
+    --color-border-subtle: oklch(0.9 0.007 70);
+    --color-text: oklch(0.2 0.015 50);
+    --color-text-secondary: oklch(0.45 0.015 50);
+    --color-text-muted: oklch(0.6 0.01 50);
+    --color-focus: oklch(0.55 0.15 50);
+    --color-grid: oklch(0.88 0.008 70);
+    --color-axis: oklch(0.55 0.01 50);
+    --color-chart-1: oklch(0.58 0.1 165);
+    --color-chart-2: oklch(0.55 0.12 55);
+    --color-tooltip-bg: oklch(0.22 0.015 50);
+    --color-tooltip-border: oklch(0.35 0.012 50);
+  }
+
+  .theme-stone.dark {
+    --color-surface: oklch(0.15 0.01 50);
+    --color-surface-raised: oklch(0.19 0.01 50);
+    --color-surface-sunken: oklch(0.12 0.008 50);
+    --color-border: oklch(0.3 0.01 50);
+    --color-border-subtle: oklch(0.23 0.008 50);
+    --color-text: oklch(0.9 0.008 70);
+    --color-text-secondary: oklch(0.65 0.01 70);
+    --color-text-muted: oklch(0.5 0.008 50);
+    --color-focus: oklch(0.65 0.15 50);
+    --color-grid: oklch(0.3 0.008 50);
+    --color-axis: oklch(0.55 0.008 50);
+    --color-chart-1: oklch(0.7 0.1 165);
+    --color-chart-2: oklch(0.68 0.12 55);
+    --color-tooltip-bg: oklch(0.19 0.01 50);
+    --color-tooltip-border: oklch(0.3 0.01 50);
+  }
+
+  .theme-carbon {
+    --color-surface: oklch(0.995 0.001 250);
+    --color-surface-raised: oklch(1 0 0);
+    --color-surface-sunken: oklch(0.965 0.002 250);
+    --color-border: oklch(0.82 0.004 250);
+    --color-border-subtle: oklch(0.9 0.002 250);
+    --color-text: oklch(0.12 0.005 250);
+    --color-text-secondary: oklch(0.35 0.008 250);
+    --color-text-muted: oklch(0.5 0.005 250);
+    --color-focus: oklch(0.5 0.22 255);
+
+    --color-chart-1: oklch(0.55 0.12 185);
+    --color-chart-2: oklch(0.5 0.18 270);
+
+    --color-status-ok: oklch(0.55 0.2 155);
+    --color-status-warn: oklch(0.65 0.18 80);
+    --color-status-crit: oklch(0.5 0.24 25);
+
+    --color-grid: oklch(0.9 0.002 250);
+    --color-axis: oklch(0.5 0.005 250);
+    --color-tooltip-bg: oklch(0.15 0.005 250);
+    --color-tooltip-border: oklch(0.25 0.005 250);
+  }
+
+  .theme-carbon.dark {
+    --color-surface: oklch(0.12 0.005 250);
+    --color-surface-raised: oklch(0.16 0.005 250);
+    --color-surface-sunken: oklch(0.08 0.003 250);
+    --color-border: oklch(0.25 0.006 250);
+    --color-border-subtle: oklch(0.2 0.004 250);
+    --color-text: oklch(0.93 0.004 250);
+    --color-text-secondary: oklch(0.7 0.006 250);
+    --color-text-muted: oklch(0.5 0.005 250);
+    --color-focus: oklch(0.7 0.2 255);
+
+    --color-chart-1: oklch(0.7 0.12 185);
+    --color-chart-2: oklch(0.68 0.18 270);
+
+    --color-status-ok: oklch(0.78 0.18 155);
+    --color-status-warn: oklch(0.85 0.15 80);
+    --color-status-crit: oklch(0.75 0.22 25);
+
+    --color-grid: oklch(0.22 0.003 250);
+    --color-axis: oklch(0.5 0.005 250);
+    --color-tooltip-bg: oklch(0.1 0.003 250);
+    --color-tooltip-border: oklch(0.25 0.005 250);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code, pre, kbd, samp, .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  *:focus-visible {
+    --tw-ring-offset-color: var(--color-surface);
+  }
+
+  .force-reduced-motion,
+  .force-reduced-motion * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .force-high-contrast {
+    --color-text: oklch(0 0 0);
+    --color-text-secondary: oklch(0.2 0 0);
+    --color-text-muted: oklch(0.35 0 0);
+    --color-border: oklch(0.5 0 0);
+    --color-border-subtle: oklch(0.65 0 0);
+  }
+
+  .force-high-contrast.dark {
+    --color-text: oklch(1 0 0);
+    --color-text-secondary: oklch(0.85 0 0);
+    --color-text-muted: oklch(0.7 0 0);
+    --color-border: oklch(0.6 0 0);
+    --color-border-subtle: oklch(0.45 0 0);
+  }
+}
+
+@layer components {
+  .btn-icon {
+    color: var(--color-text-muted);
+    transition: color 150ms ease-out;
+  }
+  .btn-icon:hover,
+  .btn-icon:focus-visible {
+    color: var(--color-text-secondary);
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
