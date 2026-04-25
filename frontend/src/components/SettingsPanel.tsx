@@ -142,6 +142,7 @@ export const SettingsPanel = memo(function SettingsPanel({
             backgroundColor: "var(--color-surface-raised)",
             borderColor: "var(--color-border)",
             width: "280px",
+            maxWidth: "calc(100vw - 2rem)",
             zIndex: 50,
             boxShadow: "0 4px 24px oklch(0 0 0 / 0.12)",
           }}
