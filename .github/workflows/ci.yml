@@ -3,17 +3,15 @@ name: CI
 on:
   push:
     branches: [main]
-    paths: ["dash/**"]
   pull_request:
     branches: [main]
-    paths: ["dash/**"]
 
 jobs:
   lint-backend:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: dash/backend
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: dash/frontend
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -40,9 +38,6 @@ jobs:
   build-docker:
     runs-on: ubuntu-latest
     needs: [lint-backend, lint-frontend]
-    defaults:
-      run:
-        working-directory: dash
     steps:
       - uses: actions/checkout@v4
       - run: docker build -f Dockerfile.backend -t dash-backend .

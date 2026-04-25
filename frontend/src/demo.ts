@@ -1,7 +1,10 @@
 import type { DataPoint, SeriesPoint } from "@/types";
 
 export function isDemoMode(): boolean {
-  return new URLSearchParams(window.location.search).has("demo");
+  return (
+    new URLSearchParams(window.location.search).has("demo") ||
+    window.location.hostname.endsWith("github.io")
+  );
 }
 
 function noise(base: number, amplitude: number): number {
