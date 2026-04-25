@@ -78,9 +78,9 @@ export function Dashboard({
   return (
     <div>
       <ResponsiveGrid
-        layouts={{ xl: gridLayout, lg: gridLayout, md: gridLayout, sm: gridLayout }}
-        breakpoints={{ xl: 1440, lg: 1024, md: 768, sm: 0 }}
-        cols={{ xl: 6, lg: 4, md: 2, sm: 1 }}
+        layouts={{ lg: gridLayout, md: gridLayout, sm: gridLayout }}
+        breakpoints={{ lg: 1024, md: 768, sm: 0 }}
+        cols={{ lg: 4, md: 2, sm: 1 }}
         rowHeight={140}
         draggableHandle=".drag-handle"
         onLayoutChange={handleLayoutChange}
