@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import type { DataPoint } from "@/types";
-import { CHART_COLORS, chartTooltipStyle } from "@/tokens";
+import { CHART_COLORS, CHART_TOOLTIP_STYLE } from "@/tokens";
 
 interface LineChartWidgetProps {
   data: DataPoint[];
@@ -55,7 +55,7 @@ export const LineChartWidget = memo(function LineChartWidget({ data, seriesKeys 
           tickLine={false}
         />
         <YAxis tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} stroke="var(--color-axis)" tickLine={false} />
-        <Tooltip contentStyle={chartTooltipStyle()} />
+        <Tooltip contentStyle={CHART_TOOLTIP_STYLE} />
         <Legend wrapperStyle={{ fontSize: "var(--text-sm)" }} />
         {keys.map((key, i) => (
           <Line

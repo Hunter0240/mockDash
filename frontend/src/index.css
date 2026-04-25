@@ -82,6 +82,10 @@
     --color-text-secondary: oklch(0.45 0.015 50);
     --color-text-muted: oklch(0.6 0.01 50);
     --color-focus: oklch(0.55 0.15 50);
+    --color-status-ok: oklch(0.6 0.15 145);
+    --color-status-warn: oklch(0.72 0.14 70);
+    --color-status-crit: oklch(0.58 0.18 30);
+
     --color-grid: oklch(0.88 0.008 70);
     --color-axis: oklch(0.55 0.01 50);
     --color-chart-1: oklch(0.58 0.1 165);
@@ -100,6 +104,11 @@
     --color-text-secondary: oklch(0.65 0.01 70);
     --color-text-muted: oklch(0.5 0.008 50);
     --color-focus: oklch(0.65 0.15 50);
+
+    --color-status-ok: oklch(0.7 0.13 145);
+    --color-status-warn: oklch(0.78 0.12 70);
+    --color-status-crit: oklch(0.68 0.16 30);
+
     --color-grid: oklch(0.3 0.008 50);
     --color-axis: oklch(0.55 0.008 50);
     --color-chart-1: oklch(0.7 0.1 165);

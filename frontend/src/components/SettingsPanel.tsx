@@ -196,7 +196,7 @@ export const SettingsPanel = memo(function SettingsPanel({
                     className="flex items-center cursor-pointer"
                     style={{ gap: "var(--space-sm)", fontSize: "var(--text-xs)" }}
                   >
-                    <span className="relative" style={{ width: "24px", height: "24px", flexShrink: 0 }}>
+                    <span className="relative rounded focus-within:ring-2 focus-within:ring-[var(--color-focus)] focus-within:ring-offset-1" style={{ width: "24px", height: "24px", flexShrink: 0 }}>
                       <span
                         className="block rounded"
                         style={{
@@ -210,7 +210,7 @@ export const SettingsPanel = memo(function SettingsPanel({
                         type="color"
                         value={colors[i]}
                         onChange={(e) => handleColorChange(i, e.target.value)}
-                        className="absolute inset-0 cursor-pointer"
+                        className="absolute inset-0 cursor-pointer focus:outline-none"
                         style={{ opacity: 0, width: "100%", height: "100%" }}
                       />
                     </span>
