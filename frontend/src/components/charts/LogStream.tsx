@@ -7,11 +7,11 @@ interface LogStreamProps {
 }
 
 export const LogStream = memo(function LogStream({ data, maxLines = 200 }: LogStreamProps) {
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    bottomRef.current?.scrollIntoView({ behavior: prefersReduced ? "instant" : "smooth" });
+    const el = containerRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [data.length]);
 
   const lines = data.slice(-maxLines);
@@ -25,7 +25,7 @@ export const LogStream = memo(function LogStream({ data, maxLines = 200 }: LogSt
   }
 
   return (
-    <div className="overflow-auto h-full font-mono leading-5" role="log" aria-live="off" style={{ fontSize: "var(--text-xs)" }}>
+    <div ref={containerRef} className="overflow-auto h-full font-mono leading-5" role="log" aria-live="off" style={{ fontSize: "var(--text-xs)" }}>
       {lines.map((point, i) => {
         const ts = new Date(point.timestamp).toLocaleTimeString();
         const values = point.series
@@ -42,7 +42,6 @@ export const LogStream = memo(function LogStream({ data, maxLines = 200 }: LogSt
           </div>
         );
       })}
-      <div ref={bottomRef} />
     </div>
   );
 });
