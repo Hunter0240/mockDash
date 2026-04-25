@@ -161,6 +161,10 @@ function App() {
   }, [dark, theme, settings.reducedMotion, settings.highContrast, settings.chartColors]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (isDemoMode()) {
       setDashboard({
         id: 0,
