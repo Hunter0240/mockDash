@@ -159,8 +159,6 @@ const WidgetSlot = memo(function WidgetSlot({
   const renderedPrevRef = useRef<number | null>(null);
   const currentValue =
     latestSeries.length > 0 ? latestSeries[0].value : null;
-  const previousValue = renderedPrevRef.current;
-
   useEffect(() => {
     if (currentValue !== null) {
       renderedPrevRef.current = prevRef.current;
