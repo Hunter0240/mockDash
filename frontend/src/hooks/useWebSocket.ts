@@ -20,7 +20,6 @@ const DEMO_WIDGET_QUERIES: Record<string, string> = {
 export function useWebSocket(dashboardId: number | null) {
   const wsRef = useRef<WebSocket | null>(null);
   const backoffRef = useRef(1000);
-  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const [messages, setMessages] = useState<Map<string, WsMessage>>(new Map());
   const [connected, setConnected] = useState(false);
   const subscribedRef = useRef<Set<string>>(new Set());
@@ -81,7 +80,7 @@ export function useWebSocket(dashboardId: number | null) {
       setConnected(false);
       const delay = Math.min(backoffRef.current, MAX_BACKOFF);
       backoffRef.current = delay * 2;
-      reconnectTimerRef.current = setTimeout(connect, delay);
+      setTimeout(connect, delay);
     };
 
     wsRef.current = ws;
@@ -91,7 +90,6 @@ export function useWebSocket(dashboardId: number | null) {
     connect();
     return () => {
       wsRef.current?.close();
-      clearTimeout(reconnectTimerRef.current);
       clearInterval(demoIntervalRef.current);
     };
   }, [connect]);

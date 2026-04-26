@@ -269,7 +269,7 @@ function App() {
             role="alert"
             style={{
               backgroundColor: "var(--color-status-warn)",
-              color: "var(--color-text)",
+              color: "oklch(0.2 0 0)",
               fontSize: "var(--text-sm)",
               padding: "var(--space-xs) var(--space-xl)",
               textAlign: "center",

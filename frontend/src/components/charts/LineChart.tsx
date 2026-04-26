@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import type { DataPoint } from "@/types";
-import { CHART_COLORS, CHART_TOOLTIP_STYLE } from "@/tokens";
+import { CHART_COLORS, chartTooltipStyle } from "@/tokens";
 
 interface LineChartWidgetProps {
   data: DataPoint[];
@@ -26,23 +26,19 @@ export const LineChartWidget = memo(function LineChartWidget({ data, seriesKeys 
     );
   }
 
-  const keys = useMemo(
-    () => seriesKeys ?? Array.from(new Set(data.flatMap((d) => d.series.map((s) => s.label)))),
-    [data, seriesKeys]
-  );
+  const keys =
+    seriesKeys ??
+    Array.from(new Set(data.flatMap((d) => d.series.map((s) => s.label))));
 
-  const chartData = useMemo(
-    () => data.map((point) => {
-      const row: Record<string, unknown> = {
-        time: new Date(point.timestamp).toLocaleTimeString(),
-      };
-      for (const s of point.series) {
-        row[s.label] = s.value;
-      }
-      return row;
-    }),
-    [data]
-  );
+  const chartData = data.map((point) => {
+    const row: Record<string, unknown> = {
+      time: new Date(point.timestamp).toLocaleTimeString(),
+    };
+    for (const s of point.series) {
+      row[s.label] = s.value;
+    }
+    return row;
+  });
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -55,7 +51,7 @@ export const LineChartWidget = memo(function LineChartWidget({ data, seriesKeys 
           tickLine={false}
         />
         <YAxis tick={{ fontSize: 11, fill: "var(--color-text-muted)" }} stroke="var(--color-axis)" tickLine={false} />
-        <Tooltip contentStyle={CHART_TOOLTIP_STYLE} />
+        <Tooltip contentStyle={chartTooltipStyle()} />
         <Legend wrapperStyle={{ fontSize: "var(--text-sm)" }} />
         {keys.map((key, i) => (
           <Line

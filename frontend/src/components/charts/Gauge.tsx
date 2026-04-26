@@ -35,7 +35,7 @@ export const Gauge = memo(function Gauge({
     <div className="flex flex-col items-center justify-center h-full">
       <svg
         viewBox="0 0 200 120"
-        className="w-full max-w-[200px]"
+        className="w-full max-w-[200px] sm:max-w-[160px] md:max-w-[200px]"
         role="img"
         aria-label={`Gauge: ${value !== null ? value.toFixed(1) : "no data"}${unit ? ` ${unit}` : ""}`}
       >

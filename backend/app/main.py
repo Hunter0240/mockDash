@@ -54,15 +54,25 @@ async def health():
     return {"status": "ok"}
 
 
+_VALID_ACTIONS = {"subscribe", "unsubscribe"}
+
+
 @app.websocket("/ws/dashboard/{dashboard_id}")
 async def websocket_endpoint(websocket: WebSocket, dashboard_id: int):
     await manager.connect(websocket, dashboard_id)
     try:
         while True:
             raw = await websocket.receive_text()
-            msg = json.loads(raw)
+            try:
+                msg = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
             action = msg.get("action")
+            if action not in _VALID_ACTIONS:
+                continue
             widget_ids = msg.get("widget_ids", [])
+            if not isinstance(widget_ids, list) or not all(isinstance(w, str) for w in widget_ids):
+                continue
             if action == "subscribe":
                 manager.subscribe(websocket, widget_ids)
             elif action == "unsubscribe":

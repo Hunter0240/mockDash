@@ -16,11 +16,13 @@ export function metricColor(metric: string): string {
   return METRIC_COLOR_MAP[metric] ?? CHART_COLORS[0];
 }
 
-export const CHART_TOOLTIP_STYLE: React.CSSProperties = {
-  backgroundColor: "var(--color-tooltip-bg)",
-  border: "1px solid var(--color-tooltip-border)",
-  borderRadius: "6px",
-  fontSize: "var(--text-sm)",
-  fontFamily: "var(--font-sans)",
-  color: "var(--color-text)",
-};
+export function chartTooltipStyle(): React.CSSProperties {
+  return {
+    backgroundColor: "var(--color-tooltip-bg)",
+    border: "1px solid var(--color-tooltip-border)",
+    borderRadius: "6px",
+    fontSize: "var(--text-sm)",
+    fontFamily: "var(--font-sans)",
+    color: "var(--color-text)",
+  };
+}

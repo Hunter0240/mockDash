@@ -2,8 +2,6 @@
 
 Real-time data dashboard with React frontend and FastAPI backend. Connects to any data source and presents live metrics through a drag-and-drop widget grid with WebSocket push updates.
 
-**[Live Demo](https://hunter0240.github.io/mockDash/)**
-
 ## Features
 
 - Six widget types: stat card, line chart, bar chart, gauge, data table, log stream
