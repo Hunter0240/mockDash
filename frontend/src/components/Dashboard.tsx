@@ -91,19 +91,42 @@ export function Dashboard({
         {layout.map((widget) => (
           <div key={widget.widget_id}>
             <ErrorBoundary>
-              <WidgetSlot
+              <MemoWidgetSlot
                 config={widget}
                 liveMessage={messages.get(widget.widget_id)}
                 range={ranges[widget.widget_id] ?? "1h"}
-                onRangeChange={(r) =>
-                  setRanges((prev) => ({ ...prev, [widget.widget_id]: r }))
-                }
+                setRanges={setRanges}
               />
             </ErrorBoundary>
           </div>
         ))}
       </ResponsiveGrid>
     </div>
+  );
+}
+
+function MemoWidgetSlot({
+  config,
+  liveMessage,
+  range,
+  setRanges,
+}: {
+  config: WidgetConfig;
+  liveMessage?: WsMessage;
+  range: string;
+  setRanges: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+}) {
+  const onRangeChange = useCallback(
+    (r: string) => setRanges((prev) => ({ ...prev, [config.widget_id]: r })),
+    [config.widget_id, setRanges]
+  );
+  return (
+    <WidgetSlot
+      config={config}
+      liveMessage={liveMessage}
+      range={range}
+      onRangeChange={onRangeChange}
+    />
   );
 }
 
@@ -143,8 +166,10 @@ const WidgetSlot = memo(function WidgetSlot({
       history.length === 0 ||
       history[history.length - 1].timestamp !== point.timestamp
     ) {
+      if (history.length >= 200) {
+        history.splice(0, history.length - 199);
+      }
       history.push(point);
-      if (history.length > 200) history.shift();
     }
   }
 

@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -26,19 +26,26 @@ export const LineChartWidget = memo(function LineChartWidget({ data, seriesKeys 
     );
   }
 
-  const keys =
-    seriesKeys ??
-    Array.from(new Set(data.flatMap((d) => d.series.map((s) => s.label))));
+  const keys = useMemo(
+    () =>
+      seriesKeys ??
+      Array.from(new Set(data.flatMap((d) => d.series.map((s) => s.label)))),
+    [data, seriesKeys]
+  );
 
-  const chartData = data.map((point) => {
-    const row: Record<string, unknown> = {
-      time: new Date(point.timestamp).toLocaleTimeString(),
-    };
-    for (const s of point.series) {
-      row[s.label] = s.value;
-    }
-    return row;
-  });
+  const chartData = useMemo(
+    () =>
+      data.map((point) => {
+        const row: Record<string, unknown> = {
+          time: new Date(point.timestamp).toLocaleTimeString(),
+        };
+        for (const s of point.series) {
+          row[s.label] = s.value;
+        }
+        return row;
+      }),
+    [data]
+  );
 
   return (
     <ResponsiveContainer width="100%" height="100%">

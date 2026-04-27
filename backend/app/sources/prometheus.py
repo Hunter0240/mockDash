@@ -23,17 +23,18 @@ class PrometheusSource(DataSourceBase):
         resp.raise_for_status()
         data = resp.json()
 
-        points = []
+        grouped: dict[float, list[dict]] = {}
         for result in data.get("data", {}).get("result", []):
             label = result.get("metric", {}).get("__name__", "value")
             for ts, val in result.get("values", []):
-                points.append(
-                    DataPoint(
-                        timestamp=datetime.fromtimestamp(float(ts)),
-                        series=[{"label": label, "value": float(val)}],
-                    )
+                ts_f = float(ts)
+                grouped.setdefault(ts_f, []).append(
+                    {"label": label, "value": float(val)}
                 )
-        return points
+        return [
+            DataPoint(timestamp=datetime.fromtimestamp(ts), series=series)
+            for ts, series in sorted(grouped.items())
+        ]
 
     async def close(self):
         await self._client.aclose()
